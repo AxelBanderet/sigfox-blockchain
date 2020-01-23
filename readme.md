@@ -10,11 +10,13 @@ Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..
 ## Architecture
 
 1. Writing to Microsoft Azure
+
 ![Image](img/WriteIntoAzure.png)
 
 Sigfox devices send some data over Sigfox 0G network. Then a callback pushes it through a callback up to Microsoft Azure IoT Hub.
 
 2. Prepare the data
+
 ![Image](img/PrepareForBlockchainIngestion.png)
 
 Then, a suite of Azure services are being sollicited. First we use a Function App to parse the data into a Temperature and Humidity decimal values. It is then collected in a dedicated Service Bus that is responsible of routing up to a Logic App. 
@@ -22,6 +24,7 @@ Then, a suite of Azure services are being sollicited. First we use a Function Ap
 This Logic App has a simple objective: formatting the previously mentionned data into something that cna be ingested by Azure Workbench Blockchain
 
 3. Publish into the Blockchain
+
 ![Image](img/PublishIntoBlockchain.png)
 
 A group of 2 consumers is listening for incoming messages into the previous service bus. The first one is a Database Consumer that will automatically push event informations into a simple SQL database.
@@ -29,6 +32,7 @@ A group of 2 consumers is listening for incoming messages into the previous serv
 The second one is a Data Ledger Technology Consumer responsible of forwarding the metadata for transactions to be written to the blockchain. Then the Transaction Builder & Signer assemblesthe blockchain transaction based on the data and the desired blockchain destination. Once assembled, the transaction is signed and delivered to Azure Blockchain Service through a specific router. Private keys are stored in Azure Key Vault.
 
 4. Interact from WebApps
+
 ![Image](img/ReadFromWeb.png)
 
 Azure Workbench Blockchain provides plug and play interaction tools such as a Client web app and a smartphone app. These client apps are connected to an Azure Active Directory for users and roles management. 
