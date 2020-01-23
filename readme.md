@@ -1,51 +1,48 @@
 # Setting up a Sigfox Blockchain application with Microsoft Azure
-# Enabling the power of IoT through Blockchain and Smart Contract. 
 
 ## Introduction
 Sigfox 0G network allows to collect unprecedent amount of data. However, we have seen that this data does not mean anything if not correctly used. It needs to be treated, refined, processed, correlated .. and once done in the appropriate way, it is then also bringing an unprecedent amount of value. That is why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
 
 On the other hand, Blockchain has emerged in the past decades as one of the most incredible technology. 
-BLOCKCHAIN INTRO
 
 Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..
 
-## Smart refrigerated transportation 
-### Overview
-EXPLAINING THE EXAMPLE
-https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md
-
-https://github.com/Azure    -Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
-
-### Roles explanation
-
 ## Architecture
 
-### Step by step architecture overview
-
-Write into Azure
+1. Writing to Microsoft Azure
 ![Image](img/WriteIntoAzure.png)
 
-Format for blockchain ingestion
+Sigfox devices send some data over Sigfox 0G network. Then a callback pushes it through a callback up to Microsoft Azure IoT Hub.
+
+2. Prepare the data
 ![Image](img/PrepareForBlockchainIngestion.png)
 
-Publish into blockchain
+Then, a suite of Azure services are being sollicited. First we use a Function App to parse the data into a Temperature and Humidity decimal values. It is then collected in a dedicated Service Bus that is responsible of routing up to a Logic App. 
+
+This Logic App has a simple objective: formatting the previously mentionned data into something that cna be ingested by Azure Workbench Blockchain
+
+3. Publish into the Blockchain
 ![Image](img/PublishIntoBlockchain.png)
 
-Read from web
+A group of 2 consumers is listening for incoming messages into the previous service bus. The first one is a Database Consumer that will automatically push event informations into a simple SQL database.
+
+The second one is a Data Ledger Technology Consumer responsible of forwarding the metadata for transactions to be written to the blockchain. Then the Transaction Builder & Signer assemblesthe blockchain transaction based on the data and the desired blockchain destination. Once assembled, the transaction is signed and delivered to Azure Blockchain Service through a specific router. Private keys are stored in Azure Key Vault.
+
+4. Interact from WebApps
 ![Image](img/ReadFromWeb.png)
 
-### Global architecture picture
+Azure Workbench Blockchain provides plug and play interaction tools such as a Client web app and a smartphone app. These client apps are connected to an Azure Active Directory for users and roles management. 
 
-The finale architecure is as follow:
+These web-services interact with a REST-based gateway service API. When writing to a blockchain, the API generates and delivers messages to an event broker. When data is requested by the API, queries are sent to the off-chain SQL database. The SQL database contains a replica of on-chain data and metadata that provides context and configuration information for supported smart contracts. Queries return the required data from the off-chain replica in a format informed by the metadata for the contract.
 
+### Global architecture overview
 ![Image](img/GlobalArchitectureOverview.png)
 
-### High level flow
+## Smart Refrigerated Transportation Example
 
-#### Writing the data directly into Azure IoT Hub
+https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md
 
-
-### Collect and parse the raw data on Azure
+https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
 
 The first step is to configure the Sigfox backend to push your device data up to an Azure IoT Hub.
 
@@ -56,7 +53,7 @@ It is about configuring Sigfox Backend Azure IoT Hub Callback to push the data g
 Note that once done, instead of pushing the data into an Event Hub we will chose instead to output it in a Service Bus.
 Also, for later compatibility purposes, we will need to "Round" the temperature and humidity parsed values.
 
-### Delivering Data from IoT Hub to Azure Blockchain Workbench
+### Smart Refrigerated Transportation
 
 The next step is about being able to deliver the previous parsed data up to [Azure Blockchain Workbench](https://azure.microsoft.com/en-gb/features/blockchain-workbench/). It is basically a set of Azure services designed to help create and deploy blockchain applications. The goal is to be able to simplify and ease the development of such innovative applications, thus allowing to significantly accelerate the time to market of any blockchain related project. Also, since it is fully integrated in Azure, you will benefit of the cloud scalability and pay per use advantage.
 
