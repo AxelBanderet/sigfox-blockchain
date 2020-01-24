@@ -9,6 +9,9 @@ Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..
 
 ## Architecture
 
+### Global architecture overview
+![Image](img/GlobalArchitectureOverview.png)
+
 ### 1. Writing to Microsoft Azure
 
 ![Image](img/WriteIntoAzure.png)
@@ -38,9 +41,6 @@ The second one is a Data Ledger Technology Consumer responsible of forwarding th
 Azure Workbench Blockchain provides plug and play interaction tools such as a Client web app and a Smartphone app. They are connected to an Azure Active Directory for users and roles management. 
 
 These web-services interact with a REST-based gatewayservice API. When writing to a blockchain, the API generates and delivers messages to an event broker. When data is requested by the API, queries are sent to the off-chain SQL database. The SQL database contains a replica of on-chain data and metadata that provides context and configuration information for supported smart contracts. Queries return the required data from the off-chain replica in a format informed by the metadata for the contract.
-
-### Global architecture overview
-![Image](img/GlobalArchitectureOverview.png)
 
 ## Concrete example
 
