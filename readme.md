@@ -163,14 +163,30 @@ Download the sql procedure file [here](https://github.com/Azure-Samples/blockcha
 
 Finally you need to load it in Azure by selecting *Open query* and run it.
 
+5. User creation
 
-5. Logic App
+The external ID of the User table is used to hold the id of the device.
+
+Add a user to Azure Blockchain Workbench that will represent your device using this [documentation](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/manage-users).
+
+Identify the device ID for your device that will be sent with the telemetry message.
+
+In the query window, enter and execute the following SQL
+
+Update [User] Set External Id = ‘ < your device id here >’ where EmailAddress = ‘< insert email address here >’
+
+After creating a user to representing my Sens'it, I end up with this Active Directory user list:
+
+![Image](img/ActiveDirectoryUsers.png)
+
+6. Logic App
 
 It is composed of 9 steps:
 
 ![Image](img/LogicAppSteps.png)
 
-* 
+* Step 1
+
 
 
 
