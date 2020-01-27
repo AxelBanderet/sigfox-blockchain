@@ -12,13 +12,13 @@ Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..
 ### Global architecture overview
 ![Image](img/GlobalArchitectureOverview.png)
 
-### 1. Writing to Microsoft Azure
+1. Writing to Microsoft Azure
 
 ![Image](img/WriteIntoAzure.png)
 
 Sigfox devices send some data over Sigfox 0G network. Then the Sigfox Cloud pushes it through a callback up to Microsoft Azure IoT Hub.
 
-### 2. Prepare the data
+2. Prepare the data
 
 ![Image](img/PrepareForBlockchainIngestion.png)
 
@@ -28,7 +28,7 @@ It is then collected in a Service Bus that is responsible of routing it up to a 
 
 This Logic App has a simple objective: formatting the previously mentionned data into something that can be ingested by Azure Workbench Blockchain
 
-### 3. Publish into the Blockchain
+3. Publish into the Blockchain
 
 ![Image](img/PublishIntoBlockchain.png)
 
@@ -36,7 +36,7 @@ Two consumer services are listening for incoming messages into the previous serv
 
 The second one is a Data Ledger Technology Consumer responsible of forwarding the metadata for transactions to be written to the blockchain. Then the Transaction Builder & Signer assembles the blockchain transaction based on the related input data. Once assembled, the transaction is signed and delivered to Azure Blockchain Service through a specific router. Private keys are stored in Azure Key Vault.
 
-### 4. Interact from WebApps
+4. Interact from WebApps
 
 ![Image](img/ReadFromWeb.png)
 
@@ -44,7 +44,7 @@ Azure Workbench Blockchain provides plug and play interaction tools such as a Cl
 
 These web-services interact with a REST-based gatewayservice API. When writing to a blockchain, the API generates and delivers messages to an event broker. When data is requested by the API, queries are sent to the off-chain SQL database. The SQL database contains a replica of on-chain data and metadata that provides context and configuration information for supported smart contracts. Queries return the required data from the off-chain replica in a format informed by the metadata for the contract.
 
-## Concrete example
+## Demo
 
 ### Use-case introduction - Cold chain monitoring 
 
@@ -54,7 +54,7 @@ https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot
 
 ### Implementation
 
-#### 1. Writing to Microsoft Azure
+#### Writing to Microsoft Azure
 
 The first step is to configure the Sigfox backend to push your device data up to an Azure IoT Hub.
 
@@ -63,11 +63,11 @@ instance.
 A great tutorial regarding this Sigfox data ingestion in Azure is available [here](https://medium.com/@nicolas.farolfi_48489/how-to-use-sigfox-with-microsoft-azure-c6ab6e1d1708).
 All credit to [Nicolas Farolfi](https://medium.com/@nicolas.farolfi_48489) for this tutorial. 
 
-#### 2. Prepare the data
+#### Prepare the data
 
 1. Service Bus
 
-
+Create a standard Service Bus and a Queue within this bus.
 
 2. Function App
 
@@ -136,7 +136,7 @@ module.exports = function (context, IoTHubMessages) {
     context.done();
 };
 ```
-From the integration tab, it is required to configure both inputs and outputs of your parser.
+From the integration tab, it is required to configure both inputs and outputs of your parser. Chose the queue previously created as an output of your FunctionApp
 
 ![Image](img/FunctionAppConfig.png)
 
@@ -145,9 +145,32 @@ The next step is about being able to deliver the previous parsed data up to [Azu
 A great tutorial released by Microsoft explains a way of doing so. It is available [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md).
 However, as before it needs to be adapted. 
 
+3. Deploy an Azure Workbench Blockchain instance
+
+Go to [Azure Workbench Blockchain > Deploy](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/deploy) and follow the documentation.
+
+4. Deploy the stored procedures
+
+Prior to adding the newly-created message onto the Workbench Service Bus, the Logic App first makes a SQL call to the GetContractInstanceInfoForDeviceId Stored Procedure in the Workbench db.
+
+This stored procedure takes a DeviceID as an input and returns the data for the specific contract instance that the device has been added to in Workbench with the "Device" role. (Each device can only be mapped to a single instance with this role.)
+
+Once this message has been placed onto the Azure Blockchain Workbench Service Bus, it is picked up by Workbench and the appropriate actions(s) are taken to execute the request on the blockchain.
+
+To load these stored procedures, go to the SQL database that has been deployed along with your Azure Workbench Blockchain instance, select the *Query Editor (preview)* and log in.
+
+Download the sql procedure file [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/SQL/IoTSprocs.sql) and save it locally.
+
+Finally you need to load it in Azure by selecting *Open query* and run it.
 
 
+5. Logic App
 
+It is composed of 9 steps:
+
+![Image](img/LogicAppSteps.png)
+
+* 
 
 
 
