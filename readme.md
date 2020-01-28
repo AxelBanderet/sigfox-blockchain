@@ -1,11 +1,13 @@
-# A Sigfox Blockchain application with Microsoft Azure
+# [WIP] A Sigfox Smart Contract application with Microsoft Azure [WIP]
 
 ## Introduction
-Sigfox 0G network allows to collect unprecedent amount of data. However, we have seen that this data does not mean anything if not correctly used. It needs to be treated, refined, processed, correlated .. and once done in the appropriate way, it is then also bringing an unprecedent amount of value. That is why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
+DRAFT [Sigfox 0G network allows to collect unprecedent amount of data. However, we have seen that this data does not mean anything if not correctly used. It needs to be treated, refined, processed, correlated .. and once done in the appropriate way, it is then also bringing an unprecedent amount of value. That is why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
 
 On the other hand, Blockchain has emerged in the past decades as one of the most incredible technology. 
 
-Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..
+Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..]
+
+BENEFITS OF SMART CONTRACT AND BLOCKCHAIN
 
 ## Architecture
 
