@@ -367,7 +367,7 @@ Set the "SessionId" to *RequestId*.
 
 Then the Content property can be filled with the template below:
 
-```json
+```
 {
     "requestId": "@{variables('RequestId')}",
     "userChainIdentifier": "@{items('For_each')?['UserChainIdentifier']}",
