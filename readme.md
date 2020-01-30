@@ -1,4 +1,4 @@
-# Demo of a Sigfox IoT  Blockchain application with Microsoft Azure 
+# A Sigfox IoT  Blockchain application with Microsoft Azure 
 
 ## Introduction
 DRAFT [Sigfox 0G network allows to collect unprecedent amount of data. However, we have seen that this data does not mean anything if not correctly used. It needs to be treated, refined, processed, correlated .. and once done in the appropriate way, it is then also bringing an unprecedent amount of value. That is why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
