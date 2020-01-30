@@ -1,4 +1,4 @@
-# [WIP] A Sigfox Smart Contract application with Microsoft Azure [WIP]
+# Demo of a Sigfox IoT  Blockchain application with Microsoft Azure 
 
 ## Introduction
 DRAFT [Sigfox 0G network allows to collect unprecedent amount of data. However, we have seen that this data does not mean anything if not correctly used. It needs to be treated, refined, processed, correlated .. and once done in the appropriate way, it is then also bringing an unprecedent amount of value. That is why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
@@ -189,6 +189,211 @@ It is composed of 9 steps:
 
 * Step 1
 
+The logic app will scan the queue for new incoming messages every second. 
+
+![Image](img/LogicAppConfigStep1.png)
+
+* Step 2
+
+Select **Parse JSON** action. The content needs to be converted from Base64 to String. Click in the content field, select Expression and enter the following: ```json(base64ToString(triggerBody()?['ContentData']))```
+
+For the schema property, we need to enter the one corresponding to the Sens'it in Temperature & Humidity mode:
+
+```json
+{
+    "properties": {
+        "battery": {
+            "type": "number"
+        },
+        "deviceId": {
+            "type": "string"
+        },
+        "humidity": {
+            "type": "number"
+        },
+        "temperature": {
+            "type": "number"
+        },
+        "time": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
+```
+
+![Image](img/LogicAppConfigStep2.png)
+
+* Step 3
+
+Select **SQL Stored Procedure**. Configure the connection to the corresponding Azure Workbench SQL Database and then chose the stored procedure named *GetContractInfoForDeviceID*.
+
+Using Dynamic Properties, select *deviceId*
+
+![Image](img/LogicAppConfigStep3.png)
+
+* Step 4
+
+Select **Parse JSON** action. Click in the *Content field* and then select the *ResultSets* item for content. The schema is here below:
+
+```json
+{
+    "properties": {
+        "Table1": {
+            "items": {
+                "properties": {
+                    "ConnectionId": {
+                        "type": "number"
+                    },
+                    "ContractCodeBlobStorageUrl": {
+                        "type": "string"
+                    },
+                    "ContractId": {
+                        "type": "number"
+                    },
+                    "ContractLedgerIdentifier": {
+                        "type": "string"
+                    },
+                    "IngestTelemetry_ContractPersonaID": {},
+                    "IngestTelemetry_ContractWorkflowFunctionID": {
+                        "type": "number"
+                    },
+                    "IngestTelemetry_Humidity_WorkflowFunctionParameterID": {
+                        "type": "number"
+                    },
+                    "IngestTelemetry_Temperature_WorkflowFunctionParameterID": {
+                        "type": "number"
+                    },
+                    "IngestTelemetry_Timestamp_WorkflowFunctionParameterID": {
+                        "type": "number"
+                    },
+                    "UserChainIdentifier": {
+                        "type": "string"
+                    },
+                    "WorkflowFunctionId": {
+                        "type": "number"
+                    },
+                    "WorkflowFunctionName": {
+                        "type": "string"
+                    },
+                    "WorkflowName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "ContractId",
+                    "WorkflowFunctionId",
+                    "ConnectionId",
+                    "ContractLedgerIdentifier",
+                    "ContractCodeBlobStorageUrl",
+                    "UserChainIdentifier",
+                    "WorkflowFunctionName",
+                    "WorkflowName",
+                    "IngestTelemetry_ContractWorkflowFunctionID",
+                    "IngestTelemetry_ContractPersonaID",
+                    "IngestTelemetry_Humidity_WorkflowFunctionParameterID",
+                    "IngestTelemetry_Temperature_WorkflowFunctionParameterID",
+                    "IngestTelemetry_Timestamp_WorkflowFunctionParameterID"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "type": "object"
+}
+```
+
+![Image](img/LogicAppConfigStep4.png)
+
+* Step 5
+
+Select **Initialize variable** action. This new variable will be used to specify a unique id for the request. This can be useful for monitoring purposes later on.
+
+Set the Name property to *RequestId*.
+
+Set the Type property to *String*.
+
+In the Value property, use the Dynamic Content window, select Expression and enter: ```guid()```
+
+![Image](img/LogicAppConfigStep5.png)
+
+* Step 6
+
+Select **Initialize variable** action. This new variable will be used to define the Unix Epoch time to include as the timestamp for every new message.
+
+Set the Name property to *TicksNow*.
+
+Set the Type property to *Integer*.
+
+Click on the Value property field and then in the Dynamic Content window enter the following in the Expression tab: ```ticks(utcNow())``` 
+
+![Image](img/LogicAppConfigStep6.png)
+
+* Step 7
+
+Select **Initialize variable** action. This variable will be used for defining the Unix Epoch time as well.
+
+Set the Name property to *TicksTo1970*.
+
+Set the Type property to *Integer*.
+
+Click on the Value property field and then in the Dynamic Content window enter the following in the Expression tab: ```ticks('1970-01-01')``` 
+
+![Image](img/LogicAppConfigStep7.png)
+
+* Step 8
+
+Select **Initialize variable** action.
+
+Set the Name property to *Timestamp*.
+
+Set the Type property to *Integer*.
+
+Click on the Value property field and then in the Dynamic Content window enter the following in the Expression tab: ```div(sub(variables('TicksNow'),variables('TicksTo1970')),10000000)``` 
+
+![Image](img/LogicAppConfigStep8.png)
+
+* Step 9
+
+Select **For each** action.
+
+In the field called "Select an output from previous steps property", select *Table1* from Dynamic Content list. 
+
+Then configure the action to send a message into your Worbench Blockchain associated input service bus. Configure the connection relatively:
+Set the "ueue/Topic name" to *ingressQueue*.
+
+Set the "SessionId" to *RequestId*.
+
+Then the Content property can be filled with the template below:
+
+```json
+{
+    "requestId": "@{variables('RequestId')}",
+    "userChainIdentifier": "@{items('For_each')?['UserChainIdentifier']}",
+    "contractLedgerIdentifier": "@{items('For_each')?['ContractLedgerIdentifier']}",
+    "workflowFunctionName": "IngestTelemetry",
+    "Parameters": [
+        {
+            "name": "humidity",
+            "value": "@{body('Parse_JSON')?['humidity']}"
+        },
+        {
+            "name": "temperature",
+            "value": "@{body('Parse_JSON')?['temperature']}"
+        },
+        {
+            "name": "timestamp",
+            "value": ""
+        }
+    ],
+    "connectionId": @{items('For_each')?['ConnectionId']},
+    "messageSchemaVersion": "1.0.0",
+    "messageName": "CreateContractActionRequest"
+}
+``` 
+
+![Image](img/LogicAppConfigStep9.png)
 
 
 
