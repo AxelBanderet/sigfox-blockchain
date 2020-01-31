@@ -54,7 +54,7 @@ https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/app
 
 https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
 
-### Writing to Microsoft Azure
+### Interfacing Azure with the Sigfox Cloud
 
 The first step is to configure the Sigfox backend to push your device data up to an Azure IoT Hub.
 
@@ -63,13 +63,36 @@ instance.
 A great tutorial regarding this Sigfox data ingestion in Azure is available [here](https://medium.com/@nicolas.farolfi_48489/how-to-use-sigfox-with-microsoft-azure-c6ab6e1d1708).
 All credit to [Nicolas Farolfi](https://medium.com/@nicolas.farolfi_48489) for this tutorial. 
 
-### Prepare the data
+### Blockchain set-up
+
+#### 1. Deploy Azure Workbench Blockchain
+
+Go to [Azure Workbench Blockchain > Deploy](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/deploy) and follow the documentation.
+
+#### 2. Active Directory configuration: User management
+
+The external ID of the User table is used to hold the id of the device.
+
+Add a user to Azure Blockchain Workbench that will represent your device using this [documentation](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/manage-users).
+
+Identify the device ID for your device that will be sent with the telemetry message.
+
+In the query window, enter and execute the following SQL
+
+Update [User] Set External Id = ‘ < your device id here >’ where EmailAddress = ‘< insert email address here >’
+
+After creating a user to representing my Sens'it, I end up with this Active Directory user list:
+
+![Image](img/ActiveDirectoryUsers.png)
+
+
+### Data formatting for Blockhain
 
 #### 1. Service Bus
 
 Create a standard Service Bus and a Queue within this bus.
 
-#### 2. Function App
+#### 2. Function App: Parsing the raw data
 
 In this second step, we first need to configure a Function App to parse the data from hexadecimal caracters into understandable data such as Temperature and Humidity decimal values. 
 
@@ -145,11 +168,7 @@ The next step is about being able to deliver the previous parsed data up to [Azu
 A great tutorial released by Microsoft explains a way of doing so. It is available [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md).
 However, as before it needs to be adapted. 
 
-#### 3. Deploy an Azure Workbench Blockchain instance
-
-Go to [Azure Workbench Blockchain > Deploy](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/deploy) and follow the documentation.
-
-#### 4. Deploy the stored procedures
+#### 3. Deploy the stored procedures
 
 Prior to adding the newly-created message onto the Workbench Service Bus, the Logic App first makes a SQL call to the GetContractInstanceInfoForDeviceId Stored Procedure in the Workbench db.
 
@@ -163,23 +182,7 @@ Download the sql procedure file [here](https://github.com/Azure-Samples/blockcha
 
 Finally you need to load it in Azure by selecting *Open query* and run it.
 
-#### 5. User creation
-
-The external ID of the User table is used to hold the id of the device.
-
-Add a user to Azure Blockchain Workbench that will represent your device using this [documentation](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/manage-users).
-
-Identify the device ID for your device that will be sent with the telemetry message.
-
-In the query window, enter and execute the following SQL
-
-Update [User] Set External Id = ‘ < your device id here >’ where EmailAddress = ‘< insert email address here >’
-
-After creating a user to representing my Sens'it, I end up with this Active Directory user list:
-
-![Image](img/ActiveDirectoryUsers.png)
-
-#### 6. Logic App
+#### 5. Logic App
 
 It is composed of 9 steps:
 
