@@ -1,13 +1,16 @@
-# A Sigfox IoT  Blockchain application with Microsoft Azure 
+# A Sigfox IoT Blockchain application with Microsoft Azure 
 
 ## Introduction
-DRAFT [Sigfox 0G network allows to collect unprecedent amount of data. However, we have seen that this data does not mean anything if not correctly used. It needs to be treated, refined, processed, correlated .. and once done in the appropriate way, it is then also bringing an unprecedent amount of value. That is why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
+Sigfox 0G network allows to collect unprecedent amount of data from wide types of unreachable sources so far. However, it appears that this huge amount of information does not reveal a worth related level of value unless it has been processed in a proper way. Once correctly compiled, it becomes so interesting to observe how this data can bring an unprecedent amount of value. This is the power of IoT and this is also why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about extracting and creating value from it.
 
-On the other hand, Blockchain has emerged in the past decades as one of the most incredible technology. 
+On the other hand, Blockchain has emerged in the past decades as one of the most useful and democratized technology. So many applications in multitude of markets are now using it. A Blockchain is a serie of blocks of information linked by cryptographic hashes which are distributed on a network of nodes. Each of them has a local copy of the blockchain and verify the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging the information and certainly explains why this technology has been and is still the pillar of cryptocurrencies. 
 
-Retail, Smart Insurance, Industry 4.0, Cold Chain Monitoring..]
+But what if we were storing IoT data in a Blockchain?  
 
-BENEFITS OF SMART CONTRACT AND BLOCKCHAIN
+Following this growth potential, several edge tehnologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define some logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows to use as an input the Blockchain data and to define modular automatic, instantaneous, administrative-free actions based on it. 
+
+We are now able to draw the goal of this article: 
+Deploy a Blockchain based application fed by a Sigfox IoT device wich triggers Smart Contract related actions.   
 
 ## Architecture
 
