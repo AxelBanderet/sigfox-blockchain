@@ -1,13 +1,13 @@
 # A Sigfox IoT Blockchain application with Microsoft Azure 
 
 ## Introduction
-Sigfox 0G network allows to collect unprecedent amount of data from wide types of unreachable sources so far. However, it appears that this huge amount of information does not reveal a worth related level of value unless it has been processed in a proper way. Once correctly compiled, it becomes so interesting to observe how this data can bring an unprecedent amount of value. This is the power of IoT and this is also why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about extracting and creating value from it.
+Sigfox 0G network allows to collect unprecedent amount of data from wide types of unreachable sources so far. However, it appears that this huge amount of information does not reveal a related worth value unless it has been processed in a proper way. Once correctly handled, it becomes so interesting to observe how this data can then bring an unprecedent amount of value. This is the power of IoT and this is also why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about extracting and creating value from it.
 
-On the other hand, Blockchain has emerged in the past decades as one of the most useful and democratized technology. So many applications in multitude of markets are now using it. A Blockchain is a serie of blocks of information linked by cryptographic hashes which are distributed on a network of nodes. Each of them has a local copy of the blockchain and verify the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging the information and certainly explains why this technology has been and is still the pillar of cryptocurrencies. 
+On the other hand, Blockchain has emerged in the past decades as one of the most useful and democratized technology. So many applications in multitude of markets are now adopting it. As a recap, a Blockchain is a serie of blocks of information linked by cryptographic hashes which are distributed on a network of nodes. Each of them has a local copy of the blockchain and verify the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging the information and certainly explains why this technology has been and is still the pillar of cryptocurrencies. 
 
 But what if we were storing IoT data in a Blockchain?  
 
-Following this growth potential, several edge tehnologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define some logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows to use as an input the Blockchain data and to define modular automatic, instantaneous, administrative-free actions based on it. 
+Following this growth potential, several edge tehnologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define some logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows to use as an input the Blockchain data and to define modular, automatic, instantaneous and administrative-free actions based on it. 
 
 We are now able to draw the goal of this article: 
 Deploy a Blockchain based application fed by a Sigfox IoT device wich triggers Smart Contract related actions.   
@@ -51,11 +51,9 @@ These web-services interact with a REST-based gatewayservice API. When writing t
 
 ## Demo
 
-Use-case introduction - Cold chain monitoring 
+For this demo, we will be using a ready-to-use Smart Contract provided by Microsoft. It is linked to an "IoT Refrigerated Transportation use-case". I would strongly advise to read the documentation available [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md) before going further. Here is the summary overview: 
 
-https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md
-
-https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
+**«** *The refrigerated transportation smart contract covers a provenance scenario with IoT monitoring. You can think of it as a supply chain transport scenario where certain compliance rules must be met throughout the duration of the transportation process. The initiating counterparty specifies the humidity and temperature range the measurement must fall in to be compliant. At any point, if the device takes a temperature or humidity measurement that is out of range, the contract state will be updated to indicate that it is out of compliance.* **»** 
 
 ### Interfacing Azure with the Sigfox Cloud
 
@@ -400,7 +398,11 @@ Then the Content property can be filled with the template below:
 ![Image](img/LogicAppConfigStep9.png)
 
 
+Sources:
 
+https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
+
+https://github.com/Azure-Samples/blockchain
 
 
 
