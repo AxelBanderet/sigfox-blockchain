@@ -49,13 +49,13 @@ Azure Workbench Blockchain provides plug and play interaction tools such as a Cl
 
 These web-services interact with a REST-based gatewayservice API. When writing to a blockchain, the API generates and delivers messages to an event broker. When data is requested by the API, queries are sent to the SQL database. This storage contains a replica of overall data and metadata that provides configuration and context information for the related smart contracts. Queries return the requested data from this "off-chain" replica in a format which has been specified by the smart contract.
 
-## Demo
+### Demo Setup
 
 For this demo, we will be using a ready-to-use Smart Contract provided by Microsoft. It is linked to an "IoT Refrigerated Transportation use-case". I would strongly advise to read the documentation available [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md) before going further. Here is the summary overview: 
 
 **«** *The refrigerated transportation smart contract covers a provenance scenario with IoT monitoring. You can think of it as a supply chain transport scenario where certain compliance rules must be met throughout the duration of the transportation process. The initiating counterparty specifies the humidity and temperature range the measurement must fall in to be compliant. At any point, if the device takes a temperature or humidity measurement that is out of range, the contract state will be updated to indicate that it is out of compliance.* **»** 
 
-### Interfacing Azure with the Sigfox Cloud
+### 1. Interfacing Azure with the Sigfox Cloud
 
 The first step is to configure the Sigfox backend to push your device data up to an Azure IoT Hub.
 
@@ -64,7 +64,7 @@ instance.
 A great tutorial regarding this Sigfox data ingestion in Azure is available [here](https://medium.com/@nicolas.farolfi_48489/how-to-use-sigfox-with-microsoft-azure-c6ab6e1d1708).
 All credit to [Nicolas Farolfi](https://medium.com/@nicolas.farolfi_48489) for this tutorial. 
 
-### Blockchain set-up
+### 2. Blockchain set-up
 
 #### 1. Deploy Azure Workbench Blockchain
 
@@ -87,7 +87,7 @@ After creating a user to representing my Sens'it, I end up with this Active Dire
 ![Image](img/ActiveDirectoryUsers.png)
 
 
-### Data formatting for Blockhain
+### 3. Data formatting 
 
 #### 1. Service Bus
 
@@ -396,6 +396,8 @@ Then the Content property can be filled with the template below:
 ``` 
 
 ![Image](img/LogicAppConfigStep9.png)
+
+#### Demo 
 
 
 Sources:
