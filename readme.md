@@ -399,6 +399,15 @@ Then the Content property can be filled with the template below:
 
 #### Demo 
 
+By connecting on the WebApp interface, it is possible to interact with what has been put in place. For instance, you can log in as one of the defined role in the Smart Contract .i.e **InitiatingCounterParty**, **Counterparty**, **Device** (that represents the Sens'it), **Owner** or **Observer**. 
+
+The different possible states for this asset transportation are also defined in the Smart Contract .i.e **Created**, **In Transit**, **Completed**, **OutOfCompliance**.
+
+It is then possible to manually trigger several actions switch from state X to state Y.  that the asset is now under my responsability. Thus, if the Sens'it sends an
+
+Here, the related Smart Contract enforce specifics related rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the IoT device identifies that the telemetry is out of the acceptable range, the contract will shift into an out of compliance state and appropriate remedies can be sought. In the happy path, the device ingests readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
+
+Depending on the contract state, related actions/or penalties can be undertaken.
 
 Sources:
 
