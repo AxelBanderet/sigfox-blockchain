@@ -397,22 +397,48 @@ Then the Content property can be filled with the template below:
 
 ![Image](img/LogicAppConfigStep9.png)
 
-#### Demo 
+## Demo 
 
-By connecting on the WebApp interface, it is possible to interact with what has been put in place. For instance, you can log in as one of the defined role in the Smart Contract .i.e **InitiatingCounterParty**, **Counterparty**, **Device** (that represents the Sens'it), **Owner** or **Observer**. 
+### Deploy the Blockchain application example
 
-The different possible states for this asset transportation are also defined in the Smart Contract .i.e **Created**, **In Transit**, **Completed**, **OutOfCompliance**.
+At this point, you are now able to interact with your system through the GUI.
+In your Azure deployed services, select the App Service and click on the given URL. 
 
-It is then possible to manually trigger several actions switch from state X to state Y.  that the asset is now under my responsability. Thus, if the Sens'it sends an
+You will land on a web page where you will be able to create and deploy a Blockchain application.
+At this moment, just upload the *.json* and *.sol* of the Refrigereated Transportation provided [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md) by Microsoft. 
+I advise to go check and deep-dive into those Smart Contract files because they are the one defining how the Blockchain application is going to behave. You will need to write such files in the future to create your own Blockhain Application.  
 
-Here, the related Smart Contract enforce specifics related rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the IoT device identifies that the telemetry is out of the acceptable range, the contract will shift into an out of compliance state and appropriate remedies can be sought. In the happy path, the device ingests readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
+![Image](img/BlockchainWebApp/DeployBlockchainApplication.png)
+
+### Add Users
+
+To add new members, make sure to log in as an application administrator. You will then be able to assign members to roles .i.e **InitiatingCounterParty**, **Counterparty**, **Device** (that represents the Sens'it), **Owner** or **Observer**. 
+
+![Image](img/BlockchainWebApp/AddMembers.png)
+
+### Create a Smart Contract instance
+
+You can now create a new Contract by assigning accounts to roles and defining thresholds to be applied.
+
+![Image](img/BlockchainWebApp/NewContract.png)
+
+### Interacting with the application
+
+Here is the general dashboard you should land on:
+
+![Image](img/BlockchainWebApp/GeneralDashboard.png)
+ 
+ By default, the contract starts in the **Created** state. Then, as written in the Smart Contract code, it is possible to "Take an Action".
+ The state might then shift to **In Transit** or **Completed**.
+ 
+ If the Sens'it sends a message with sensor measurements outside of the pre-defined window value, the state will immutably shift to **OutOfCompliance**  
+
+Here for example, the related Smart Contract enforces specifics related rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the IoT device identifies that the telemetry is out of the acceptable range, the contract will shift into an out of compliance state and appropriate remedies can be sought. In the happy path, the device ingests readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
 
 Depending on the contract state, related actions/or penalties can be undertaken.
 
 Sources:
-
 https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
-
 https://github.com/Azure-Samples/blockchain
 
 
