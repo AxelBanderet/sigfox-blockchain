@@ -406,7 +406,7 @@ In your Azure deployed services, select the App Service and click on the given U
 
 You will land on a web page where you will be able to create and deploy a Blockchain application.
 At this moment, just upload the *.json* and *.sol* of the Refrigereated Transportation provided [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md) by Microsoft. 
-I advise to go check and deep-dive into those Smart Contract files because they are the one defining how the Blockchain application is going to behave. You will need to write such files in the future to create your own Blockhain Application.  
+I advise to go check and deep-dive into those Smart Contract files because they are the one defining how the Blockchain application is behaving. You will need to write such files to create and define your own Blockhain Application.  
 
 ![Image](img/BlockchainWebApp/DeployBlockchainApplication.png)
 
@@ -437,7 +437,8 @@ Here for example, the related Smart Contract enforces specifics related rules re
 
 Depending on the contract state, related actions/or penalties can be undertaken.
 
-Sources:
+## Sources
+
 https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
 https://github.com/Azure-Samples/blockchain
 
