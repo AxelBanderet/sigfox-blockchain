@@ -439,8 +439,9 @@ Depending on the contract state, related actions/or penalties can be undertaken.
 
 ## Sources
 
-https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
-https://github.com/Azure-Samples/blockchain
++ https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
+
++ https://github.com/Azure-Samples/blockchain
 
 
 
