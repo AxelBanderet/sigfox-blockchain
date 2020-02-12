@@ -1,16 +1,15 @@
 # A Sigfox IoT Blockchain application with Microsoft Azure 
 
 ## Introduction
-Sigfox 0G network allows to collect unprecedent amount of data from wide types of unreachable sources so far. However, it appears that this huge amount of information does not reveal a related worth value unless it has been processed in a proper way. Once correctly handled, it becomes so interesting to observe how this data can then bring an unprecedent amount of value. This is the power of IoT and this is also why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about extracting and creating value from it.
+Sigfox 0G network allows to collect unprecedent amount of data from wide types of sources that were unreachable so far. However, it appears that this huge amount of information does not reveal a worth related value unless it has been processed in a proper way. Once correctly handled, it becomes so interesting to observe how this data can then bring an unprecedent amount of value. This is the power of IoT and this is also why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
 
-On the other hand, Blockchain has emerged in the past decades as one of the most useful and democratized technology. So many applications in multitude of markets are now adopting it. As a recap, a Blockchain is a serie of blocks of information linked by cryptographic hashes which are distributed on a network of nodes. Each of them has a local copy of the blockchain and verify the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging the information and certainly explains why this technology has been and is still the pillar of cryptocurrencies. 
+On the other hand, Blockchain has emerged in the past decade as one of the most useful and democratized technology. So many applications in multitude of verticals are now adopting it. As a recap, a Blockchain is a serie of blocks of information linked by cryptographic hashes which are distributed across a network of nodes. Each of them has a local copy of the blockchain and verify the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging the information.
 
-But what if we were storing IoT data in a Blockchain?  
+    What if we were pushing IoT data within a Blockchain?
 
-Following this growth potential, several edge tehnologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define some logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows to use as an input the Blockchain data and to define modular, automatic, instantaneous and administrative-free actions based on it. 
+Following this growth potential, several edge tehnologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows to use the Blockchain data as an input and define modular, automatic, instantaneous and administrative-free actions based on it.
 
-We are now able to draw the goal of this article: 
-Deploy a Blockchain based application fed by a Sigfox IoT device wich triggers Smart Contract related actions.   
+That leads us to the goal of this article: Present a Blockchain based demo application fed by a Sigfox IoT device that triggers Smart Contract related actions on Microsoft Azure.  
 
 ## Architecture
 
@@ -21,13 +20,13 @@ The global flow overview is the following:
 
 ![Image](img/WriteIntoAzure.png)
 
-Sigfox devices send some data over Sigfox 0G network. Then the Sigfox Cloud pushes it through a callback up to Microsoft Azure IoT Hub.
+The Sigfox Sens'it sends some data over Sigfox 0G network. Then the Sigfox Cloud pushes it through a callback up to Microsoft Azure IoT Hub.
 
 ### 2. Prepare the data
 
 ![Image](img/PrepareForBlockchainIngestion.png)
 
-Then, a suite of Azure services are being sollicited. First we use a Function App to parse the data into a Temperature and Humidity decimal values. 
+A suite of Azure services are then being sollicited. First we use a Function App to parse the data into Temperature and Humidity decimal values. 
 
 It is then collected in a Service Bus that is responsible of routing it up to a Logic App. 
 
@@ -39,7 +38,7 @@ This Logic App has a simple objective: formatting the previously mentionned data
 
 Two consumer services are listening for incoming messages into the previous service bus. The first one is a Database Consumer that will automatically push event informations into a simple SQL database.
 
-The second one is a Data Ledger Technology Consumer responsible of forwarding the metadata for transactions to be written to the blockchain. Then the Transaction Builder & Signer assembles the blockchain transaction based on the related input data. Once assembled, the transaction is signed and delivered to Azure Blockchain Service through a specific router. Private keys are stored in Azure Key Vault.
+The second one is a Data Ledger Technology Consumer responsible of forwarding the metadata for transactions to be written to the blockchain. The Transaction Builder & Signer assembles the blockchain transactions based on the related input data. Once assembled, every transaction is signed and delivered to Azure Blockchain Service through a specific router. Private keys are stored in Azure Key Vault.
 
 ### 4. Interact from WebApps
 
@@ -47,7 +46,7 @@ The second one is a Data Ledger Technology Consumer responsible of forwarding th
 
 Azure Workbench Blockchain provides plug and play interaction tools such as a Client web app and a Smartphone app. They are connected to an Azure Active Directory for users and roles management. 
 
-These web-services interact with a REST-based gatewayservice API. When writing to a blockchain, the API generates and delivers messages to an event broker. When data is requested by the API, queries are sent to the SQL database. This storage contains a replica of overall data and metadata that provides configuration and context information for the related smart contracts. Queries return the requested data from this "off-chain" replica in a format which has been specified by the smart contract.
+These web-services interact with a REST-based gateway service API. When writing to a blockchain, the API generates and delivers messages to an event broker. When some data is requested by the API, queries are sent to the SQL database. This storage contains a replica of overall data and metadata that provides configuration and context information about the related smart contracts. Queries return the requested data from this "off-chain" replica in a format which has been specified by the smart contract.
 
 ### Demo Setup
 
@@ -62,7 +61,7 @@ The first step is to configure the Sigfox backend to push your device data up to
 It is about configuring a Sigfox Backend Azure IoT Hub callback to push the data generated by the Sens'it up to an Azure IoT Hub 
 instance.
 A great tutorial regarding this Sigfox data ingestion in Azure is available [here](https://medium.com/@nicolas.farolfi_48489/how-to-use-sigfox-with-microsoft-azure-c6ab6e1d1708).
-All credit to [Nicolas Farolfi](https://medium.com/@nicolas.farolfi_48489) for this tutorial. 
+All credits to [Nicolas Farolfi](https://medium.com/@nicolas.farolfi_48489) for this tutorial. 
 
 ### 2. Blockchain set-up
 
@@ -76,16 +75,15 @@ The external ID of the User table is used to hold the id of the device.
 
 Add a user to Azure Blockchain Workbench that will represent your device using this [documentation](https://docs.microsoft.com/en-gb/azure/blockchain/workbench/manage-users).
 
-Identify the device ID for your device that will be sent with the telemetry message.
-
-In the query window, enter and execute the following SQL
-
-Update [User] Set External Id = ‘ < your device id here >’ where EmailAddress = ‘< insert email address here >’
-
 After creating a user to representing my Sens'it, I end up with this Active Directory user list:
 
 ![Image](img/ActiveDirectoryUsers.png)
 
+Identify the device ID from the device that will be sending telemetry messages, then go to your Azure SQL database.
+
+In the query window, enter and execute the following SQL
+
+Update [User] Set External Id = ‘ < your device id here >’ where EmailAddress = ‘< insert email address here >’
 
 ### 3. Data formatting 
 
@@ -95,10 +93,10 @@ Create a standard Service Bus and a Queue within this bus.
 
 #### 2. Function App: Parsing the raw data
 
-In this second step, we first need to configure a Function App to parse the data from hexadecimal caracters into understandable data such as Temperature and Humidity decimal values. 
+In this second step, we first need to configure a Function App to parse the data from hexadecimal string into understandable data such as Temperature and Humidity decimal values. 
 
 Note that once done, instead of pushing the data into an Event Hub we will chose instead to output it in a Service Bus.
-Also, in the interest of simplification, we will need to "Round" those decimal parsed values.
+Also, in the interest of simplification/integration, we will need to "Round" those decimal parsed values.
 
 Create a *SensitV3Parser* Function App
 
@@ -402,11 +400,9 @@ Then the Content property can be filled with the template below:
 ### Deploy the Blockchain application example
 
 At this point, you are now able to interact with your system through the GUI.
-In your Azure deployed services, select the App Service and click on the given URL. 
+In your Azure deployed resources, select the App Service and click on the given URL. 
 
-You will land on a web page where you will be able to create and deploy a Blockchain application.
-At this moment, just upload the *.json* and *.sol* of the Refrigereated Transportation provided [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md) by Microsoft. 
-I advise to go check and deep-dive into those Smart Contract files because they are the one defining how the Blockchain application is behaving. You will need to write such files to create and define your own Blockhain Application.  
+We land on a web page where we will be able to create and deploy a Blockchain application. Just upload the .json and .sol files corresponding to Refrigereated Transportation Example provided [here](https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/application-and-smart-contract-samples/refrigerated-transportation/readme.md) by Microsoft. It should be interesting to deep-dive into those Smart Contract files because they are the one defining how the Blockchain application is going to behave. Using and writing such files might be required to create your own Blockhain Application. 
 
 ![Image](img/BlockchainWebApp/DeployBlockchainApplication.png)
 
@@ -418,33 +414,28 @@ To add new members, make sure to log in as an application administrator. You wil
 
 ### Create a Smart Contract instance
 
-You can now create a new Contract by assigning accounts to roles and defining thresholds to be applied.
+We can now create a new Contract by assigning accounts to roles and define threshold values to be applied.
 
 ![Image](img/BlockchainWebApp/NewContract.png)
 
 ### Interacting with the application
 
-Here is the general dashboard you should land on:
+Here is the general dashboard we land on:
 
 ![Image](img/BlockchainWebApp/GeneralDashboard.png)
- 
- By default, the contract starts in the **Created** state. Then, as written in the Smart Contract code, it is possible to "Take an Action".
- The state might then shift to **In Transit** or **Completed**.
- 
- If the Sens'it sends a message with sensor measurements outside of the pre-defined window value, the state will immutably shift to **OutOfCompliance**  
 
-Here for example, the related Smart Contract enforces specifics related rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the IoT device identifies that the telemetry is out of the acceptable range, the contract will shift into an out of compliance state and appropriate remedies can be sought. In the happy path, the device ingests readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
+By default, the contract starts in the Created state. Then, as written in the Smart Contract code, it is possible to "Take an Action". The state will then shift to In Transit or Completed.
 
-Depending on the contract state, related actions/or penalties can be undertaken.
+Here the related Smart Contract enforces specific related rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the IoT device identifies that the telemetry is out of the acceptable range, the contract will immutably shift into an OutOfCompliance state and appropriate remedies can be sought.
+
+![Image](img/BlockchainWebApp/InTransitToOutOfComplianceState.png)
+
+In the happy path, the device sends readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
+
+IoT and Blockchain can be an interesting mix for so many verticals: Insurance 4.0, Supply Chain, Retail..
 
 ## Sources
 
 + https://github.com/Azure-Samples/blockchain/blob/master/blockchain-workbench/iot-integration-samples/ConfigureIoTDemo.md
 
 + https://github.com/Azure-Samples/blockchain
-
-
-
-
-
-
