@@ -1,15 +1,14 @@
 # A Sigfox IoT Blockchain application with Microsoft Azure 
 
+## Objective
+Following the growth of Blockchain and Smart Contract across multiple applications, I was curious to figure if we could leverage on their intrinsic benefits to optimize the use of collected IoT data. As a result, this article presents a Blockchain based demo application fed by a Sigfox IoT device that triggers Smart Contract related actions on Microsoft Azure.
+
 ## Introduction
-Sigfox 0G network allows to collect unprecedent amount of data from wide types of sources that were unreachable so far. However, it appears that this huge amount of information does not reveal a worth related value unless it has been processed in a proper way. Once correctly handled, it becomes so interesting to observe how this data can then bring an unprecedent amount of value. This is the power of IoT and this is also why Sigfox-based successfull value propositions are never only about collecting the data but more importantly about creating value from it.
+Sigfox 0G network allows to collect unprecedented amount of data from wide types of sources that were not possible to connect so far. However, this huge amount of information does not reveal a relevant value unless it is analysed and processed in a proper way. Once correctly handled, this extracted data reveals an unexpected amount of value. This is the power of IoT and this is also why Sigfox-based value propositions are never only about collecting the data but more importantly about creating value out of it.
 
-On the other hand, Blockchain has emerged in the past decade as one of the most useful and democratized technology. So many applications in multitude of verticals are now adopting it. As a recap, a Blockchain is a serie of blocks of information linked by cryptographic hashes which are distributed across a network of nodes. Each of them has a local copy of the blockchain and verify the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging the information.
+On the other hand, Blockchain has emerged in the past decade as one of the most useful and democratized technology. So many applications in multitude of verticals are now adopting it. To quickly recap, a Blockchain is a series of blocks of information linked by cryptographic hashes which are distributed across a network of nodes. Each of them has a local copy of the blockchain and verifies the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging information.
 
-    What if we were pushing IoT data within a Blockchain?
-
-Following this growth potential, several edge tehnologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows to use the Blockchain data as an input and define modular, automatic, instantaneous and administrative-free actions based on it.
-
-That leads us to the goal of this article: Present a Blockchain based demo application fed by a Sigfox IoT device that triggers Smart Contract related actions on Microsoft Azure.  
+Following this growth potential, several edge technologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows us to use the Blockchain data as an input and define modular, automatic, instantaneous and administrative-free actions based on it.
 
 ## Architecture
 
@@ -448,9 +447,42 @@ Once the shipment is handled by deliver.it, VitalPharma is able to legitimately 
 
 ![Image](img/BlockchainWebApp/TransferResponsibilityToDeliverIt.png)
 
+When logging in with deliver.it account, it appears we are now responsible for the shipment. And the same process will continue until shipment is accepted by the last element of the chain.
+
+![Image](img/BlockchainWebApp/DeliverItTakenAction.png)
+
+![Image](img/BlockchainWebApp/TransferResponsibilityToJoeBloggs.png)
+
+![Image](img/BlockchainWebApp/SuccessChain.png)
+
+Now the nteresting part:If the IoT devices measures for instance an out of rage temperature, here is what happens:
+
+![Image](img/BlockchainWebApp/OutOfComplianceState.png)
+
+And the detail of the incident:
+
+![Image](img/BlockchainWebApp/Details.png)
+
+With the related measured values from the Sens'it:
+
+![Image](img/BlockchainWebApp/SensitMeasuredValues.png)
+
+Some automatic alerts and remedies can also be set up as follow:
+
+![Image](img/BlockchainWebApp/EmailNotification.png)
+
+Also, the whole WebApp is API-based which makes it easy to integrate with any platform/middleware:
+
+![Image](img/BlockchainWebApp/ApiDescription1.png)
+![Image](img/BlockchainWebApp/ApiDescription2.png)
+
+It is also possible to visualise the data in Microsoft Power Bi as shown in this example from Microsoft:
+
+![Image](img/BlockchainWebApp/powerbi.png)
+
 ## Conclusion
 
-IoT and Blockchain can be an interesting mix for so many verticals: Insurance 4.0, Supply Chain, Retail..
+IoT and Blockchain can be an interesting mix for so many verticals: Insurance 4.0, Supply Chain, Retail.. Also, this is a private blockchain example but we would imagine further applications based on public decentralized blockchains and their corresponding tokens. 
 
 ## Sources
 
