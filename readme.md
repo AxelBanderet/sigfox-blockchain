@@ -424,13 +424,31 @@ Here is the general dashboard we land on:
 
 ![Image](img/BlockchainWebApp/GeneralDashboard.png)
 
-By default, the contract starts in the Created state. Then, as written in the Smart Contract code, it is possible to "Take an Action". The state will then shift to In Transit or Completed.
+In this demo, the related Smart Contract enforces specific rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the Smart Contract identifies that the telemetry is out of the range, it will immutably shift into an OutOfCompliance state and appropriate remedies will be sought.
 
-Here the related Smart Contract enforces specific related rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the IoT device identifies that the telemetry is out of the acceptable range, the contract will immutably shift into an OutOfCompliance state and appropriate remedies can be sought.
-
-![Image](img/BlockchainWebApp/InTransitToOutOfComplianceState.png)
+By default, the contract starts in the Created state. Then, as it transits through each intermediary of the chain, it will shift in In Transit state and finally ends up in Completed. 
 
 In the happy path, the device sends readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
+
+Let’s present the solution through an example. A pharmaceutical company “Vital Pharma” requires to ship their product including vaccins to hundreds of pharmacies across Europe. Since those products require a strong integrity management and conditions monitoring, Vital Pharma is partnering with a highly reliable delivery company “deliver.it” specialized in the shipment of such products. 
+
+In order to prove its reliability, deliver.it guarantees a full refund of the amount of the shipment if the pre-defined rules are not respected. At the end of the chain, the pharmacist “Joe Bloggs” will confirm the reception of the package. All those users are listed into an Azure Active Directory instance which makes it easy to manage.
+
+![Image](img/BlockchainWebApp/ActiveDirectoryUsers.png)
+
+Every counterparty can log on the WebApp to follow the shipment and Take Action. Here we log in as VitalPharma and define the smart contract:
+
+![Image](img/BlockchainWebApp/ContractCreation.png)
+
+The shipment appears as Created:
+
+![Image](img/BlockchainWebApp/ContractCreated.png)
+
+Once the shipment is handled by deliver.it, VitalPharma is able to legitimately transfer the responsibility:
+
+![Image](img/BlockchainWebApp/TransferResponsibilityToDeliverIt.png)
+
+## Conclusion
 
 IoT and Blockchain can be an interesting mix for so many verticals: Insurance 4.0, Supply Chain, Retail..
 
