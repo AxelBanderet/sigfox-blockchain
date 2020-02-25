@@ -1,12 +1,12 @@
 # A Sigfox IoT Blockchain application with Microsoft Azure 
 
 ## Objective
-Following the growth of Blockchain and Smart Contract across multiple applications, I was curious to figure if we could leverage on their intrinsic benefits to optimize the use of collected IoT data. As a result, this article presents a Blockchain based demo application fed by a Sigfox IoT device that triggers Smart Contract related actions on Microsoft Azure.
+Following the growth of Blockchain and Smart Contract across multiple applications, I was curious to figure out if we could leverage on their intrinsic benefits to optimize the use of collected IoT data. As a result, this article presents a Blockchain based demo application fed by a Sigfox IoT device that triggers Smart Contract related actions on Microsoft Azure.
 
 ## Introduction
-Sigfox 0G network allows to collect unprecedented amount of data from wide types of sources that were not possible to connect so far. However, this huge amount of information does not reveal a relevant value unless it is analysed and processed in a proper way. Once correctly handled, this extracted data reveals an unexpected amount of value. This is the power of IoT and this is also why Sigfox-based value propositions are never only about collecting the data but more importantly about creating value out of it.
+Sigfox 0G network allows to collect unprecedented amount of data from wide types of sources that were not possible to connect so far. However, this huge amount of information does not reveal a relevant value unless it is analysed and processed appropriately. Once correctly handled, this extracted data reveals a tremendous amount of value. This is the power of IoT and this is also why Sigfox-based value propositions are never only about collecting the data but more importantly about creating value out of it.
 
-On the other hand, Blockchain has emerged in the past decade as one of the most useful and democratized technology. So many applications in multitude of verticals are now adopting it. To quickly recap, a Blockchain is a series of blocks of information linked by cryptographic hashes which are distributed across a network of nodes. Each of them has a local copy of the blockchain and verifies the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging information.
+On the other hand, Blockchain has emerged in the past decade as one of the most useful and democratized technology. As a result, many applications in multitude of verticals are now adopting it. To quickly recap, a Blockchain is a series of blocks of information linked by cryptographic hashes which are distributed across a network of nodes. Each of them has a local copy of the blockchain and verifies the new blocks by reaching an agreed consensus. Hence, the Blockchain becomes a public distributed ledger of information which is inherently immutable, transparent and secure. This is how it defines a new way of storing and exchanging  information.
 
 Following this growth potential, several edge technologies have been developed on top of the Blockchain. Smart Contracts are one of those. The concept is basically to pre-define logical rules and actions that will be triggered depending on the data processed within the Blockchain. Among others, it allows us to use the Blockchain data as an input and define modular, automatic, instantaneous and administrative-free actions based on it.
 
@@ -423,15 +423,13 @@ Here is the general dashboard we land on:
 
 ![Image](img/BlockchainWebApp/GeneralDashboard.png)
 
-In this demo, the related Smart Contract enforces specific rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed upon acceptable range. If the Smart Contract identifies that the telemetry is out of the range, it will immutably shift into an OutOfCompliance state and appropriate remedies will be sought.
-
-By default, the contract starts in the Created state. Then, as it transits through each intermediary of the chain, it will shift in In Transit state and finally ends up in Completed. 
+In this demo, the related Smart Contract enforces certain rules related to conditions during transport. Specifically, receiving and evaluating temperature and humidity data against an agreed and acceptable range. If the Smart Contract identifies that the telemetry is out of the range, it will immutably shift into an OutOfCompliance state and appropriate remedies will be sought. By default, the contract starts in the Created state. Then, as it transits through each intermediary of the chain, it will shift in In Transit state and finally ends up as Completed. 
 
 In the happy path, the device sends readings, which are in compliance throughout the transportation process, while the involved counterparties transfer responsibility until the transportation is completed.
 
-Let’s present the solution through an example. A pharmaceutical company “Vital Pharma” requires to ship their product including vaccins to hundreds of pharmacies across Europe. Since those products require a strong integrity management and conditions monitoring, Vital Pharma is partnering with a highly reliable delivery company “deliver.it” specialized in the shipment of such products. 
+Let’s present the solution through an example. A pharmaceutical company “VitalPharma” requires their products including vaccines to be shipped to hundreds of pharmacies across Europe. Since those products require a strong integrity management and conditions monitoring, VitalPharma is partnering with a highly reliable delivery company “deliver.it” specialized in the shipment of such products. 
 
-In order to prove its reliability, deliver.it guarantees a full refund of the amount of the shipment if the pre-defined rules are not respected. At the end of the chain, the pharmacist “Joe Bloggs” will confirm the reception of the package. All those users are listed into an Azure Active Directory instance which makes it easy to manage.
+In order to commit to its reliability, deliver.it guarantees a full refund of the amount of the shipment if the pre-defined rules are not respected. At the end of the chain, the pharmacist “Joe Bloggs” will confirm the reception of the package. All those users are listed into an Azure Active Directory instance which makes it easy to manage.
 
 ![Image](img/BlockchainWebApp/ActiveDirectoryUsers.png)
 
@@ -482,7 +480,7 @@ It is also possible to visualise the data in Microsoft Power Bi as shown in this
 
 ## Conclusion
 
-IoT and Blockchain can be an interesting mix for so many verticals: Insurance 4.0, Supply Chain, Retail.. Also, this is a private blockchain example but we would imagine further applications based on public decentralized blockchains and their corresponding tokens. 
+IoT and Blockchain can be an interesting mix in so many verticals: Industry 4.0, Supply Chain, Retail.. Here we talked about private blockchain usage however I believe we could also imagine further applications based on public blockchains. 
 
 ## Sources
 
